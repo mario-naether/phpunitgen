@@ -1,0 +1,33 @@
+{% autoescape false %}
+<?php
+namespace {{ class.namespace }};
+
+/**
+*
+* {{ class.name }}
+*
+* @package {{ class.namespace }};
+*/
+class {{ testClass.name }} extends PHPUnit_Framework_TestCase
+{
+
+    /**
+     * @var \{{ originalClass.namespace }}\{{ originalClass.name }}
+     */
+    protected $fixture;
+
+    public function setUp()
+    {
+        $this->fixture = new \{{ originalClass.namespace }}\{{ originalClass.name }}();
+    }
+
+    public function tearDown()
+    {
+        $this->fixture = null;
+    }
+
+{% for method in class.methods %}
+    {{ method }}
+{% endfor %}
+}
+{% endautoescape %}

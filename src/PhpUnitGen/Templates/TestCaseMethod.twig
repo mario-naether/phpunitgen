@@ -1,0 +1,27 @@
+{% autoescape false %}
+
+    /**
+    * {{ method.description }}
+    *
+    {% for param in method.params %}
+        * @param string ${{ param.name }} {{ param.description }}{% if not param.required %} (optional){% endif %}.
+    {% endfor %}
+    */
+    public function {{ method.name }}({% for param in method.params %}${{ param.name }}{% if not param.required %} = null{% endif %}{% if not loop.last %}, {% endif %}{% endfor %})
+    {
+    {% for param in method.params if param.required %}
+        if(!is_string(${{ param.name }}) or empty(${{ param.name }})) {
+        throw new ApiClientException("Value for parameter ${{ param.name }} is not a strig or empty!");
+        };
+
+    {% endfor %}
+    return $this->execute(
+    '{{ method.name }}',
+    array(
+    {% for param in method.params %}
+        '{{ param.name }}' => ${{ param.name }}{% if not loop.last %},{% endif %}{{ " " }}
+    {% endfor %}
+    )
+    );
+    }
+{% endautoescape %}

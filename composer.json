@@ -11,11 +11,24 @@
         "symfony/console": "^2|~3",
         "twig/twig": "~1"
     },
+
+    "require-dev": {
+        "mario-naether/php-ci-template": "~0.5"
+    },
+
     "bin":["bin/phpunitgen"],
 
     "autoload" : {
         "psr-4" : {
-            "PhpunitGen\\" : "src/PhpunitGen"
+            "PhpUnitGen\\" : "src/PhpUnitGen"
+        }
+    },
+
+    "autoload-dev" : {
+        "psr-4" : {
+            "PhpUnitGen\\Tests\\" : "tests/unit",
+            "MyVendor\\MyName\\" : "tests/_data/Fixture/Classes"
+
         }
     }
 }
