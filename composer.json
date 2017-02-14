@@ -9,7 +9,9 @@
 
     "require": {
         "symfony/console": "^2|~3",
-        "twig/twig": "~1"
+        "twig/twig": "~1",
+        "symfony/finder": "^3.2",
+        "symfony/filesystem": "^3.2"
     },
 
     "require-dev": {
