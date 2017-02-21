@@ -29,8 +29,8 @@
     "autoload-dev" : {
         "psr-4" : {
             "PhpUnitGen\\Tests\\" : "tests/unit",
-            "MyVendor\\MyName\\" : "tests/_data/Fixture/Classes"
-
-        }
+            "MyVendor\\MyName\\" : "tests/_data/Fixture/Classes/MyVendor/MyName"
+        },
+        "classmap": ["tests/_data/Fixture/Classes/MySecondPool.php"]
     }
 }

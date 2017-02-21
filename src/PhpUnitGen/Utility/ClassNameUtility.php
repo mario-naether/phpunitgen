@@ -19,7 +19,7 @@ class ClassNameUtility
         $contents = file_get_contents($path_to_file);
 
         //Start with a blank namespace and class
-        $namespace = $class = "";
+        $namespace = $class = null;
 
         //Set helper values to know that we have found the namespace/class token and need to collect the string values after them
         $getting_namespace = $getting_class = false;
