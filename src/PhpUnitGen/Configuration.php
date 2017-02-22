@@ -3,7 +3,7 @@ namespace PhpUnitGen;
 
 class Configuration
 {
-    CONST TEMPLATE_FOLDER = 'src/PhpUnitGen/Templates';
-    CONST TEMPLATE_CLASS = 'TestCaseClass.twig';
-    CONST TEMPLATE_METHOD = 'TestCaseMethod.twig';
+    const TEMPLATE_FOLDER = 'src/PhpUnitGen/Templates';
+    const TEMPLATE_CLASS  = 'TestCaseClass.twig';
+    const TEMPLATE_METHOD = 'TestCaseMethod.twig';
 }

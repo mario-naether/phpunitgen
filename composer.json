@@ -15,7 +15,7 @@
     },
 
     "require-dev": {
-        "mario-naether/php-ci-template": "~0.5"
+        "mario-naether/php-ci-template": "dev-master"
     },
 
     "bin":["bin/phpunitgen"],

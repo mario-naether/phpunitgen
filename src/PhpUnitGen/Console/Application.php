@@ -6,7 +6,7 @@ use Symfony\Component\Console\Application as BaseApplication;
 
 class Application extends BaseApplication
 {
-    const NAME = 'PhpUnit Test Generator Application';
+    const NAME    = 'PhpUnit Test Generator Application';
     const VERSION = '0.0.1';
 
     public function __construct()
