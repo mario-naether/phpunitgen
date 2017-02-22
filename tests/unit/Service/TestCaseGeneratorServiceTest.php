@@ -37,10 +37,22 @@ class TestCaseGeneratorServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldGeneratedWithClassAndNamespace()
+    public function shouldGeneratedSimpleClassCodeExtendsPhpUnitFramework()
     {
 
-        $this->markTestIncomplete('Reflection not working now');
+        $this->fixture->setOriginalClass(
+            new \ReflectionClass(\MySecondPool::class)
+        );
+
+        $classCode = $this->fixture->generate();
+
+        $this->assertContains('extends PHPUnit_Framework_TestCase', $classCode);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldGenerateSetUpWithOrigClass() {
 
         $this->fixture->setOriginalClass(
             new \ReflectionClass(\MyVendor\MyName\MyPool::class)
@@ -48,7 +60,42 @@ class TestCaseGeneratorServiceTest extends \PHPUnit_Framework_TestCase
 
         $classCode = $this->fixture->generate();
 
+        $expectedCode = 'new \MyVendor\MyName\MyPool';
+        $this->assertContains($expectedCode, $classCode);
+
+        $expectedCode = '@var \MyVendor\MyName\MyPool';
+        $this->assertContains($expectedCode, $classCode);
+
+    }
+
+    /**
+     * @test
+     */
+    public function shouldGeneratedCodeWithClassAndNamespace()
+    {
+        $this->fixture->setOriginalClass(
+            new \ReflectionClass(\MyVendor\MyName\MyPool::class)
+        );
+
+        $classCode = $this->fixture->generate();
+
         $this->assertContains('class MyPoolTest', $classCode);
-        $this->assertContains('namespace MyVendor\Tests\Service;', $classCode);
+        $this->assertContains('namespace MyVendor\Tests\MyName;', $classCode);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldGeneratedCodeWithClassAndWithoutNamespace()
+    {
+        $this->fixture->setOriginalClass(
+            new \ReflectionClass(\MySecondPool::class)
+        );
+
+        $classCode = $this->fixture->generate();
+
+        $this->assertContains('class MySecondPoolTest', $classCode);
+        $this->assertNotContains('namespace', $classCode);
+        $this->assertNotContains('namespace MyVendor\Tests\MyName;', $classCode);
     }
 }

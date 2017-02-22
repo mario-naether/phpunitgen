@@ -7,6 +7,9 @@ use Twig_Loader_Filesystem;
 
 class TestCaseGeneratorService {
 
+    CONST TEST_CLASS_NAME = '%sTest';
+    CONST TEST_CLASS_NAMESPACE = '%s\Tests%s';
+
     /**
      * @var \ReflectionClass
      */
@@ -40,24 +43,46 @@ class TestCaseGeneratorService {
         return $string;
     }
 
+    /**
+     * Get parameter name and namespace from original class
+     * @return array
+     */
     protected function getOriginalClassParameter() {
+
         return [
-            'name' => 'MyPool',
-            'namespace' => 'MyVendor\Service',
+            'name' => $this->getOriginalClass()->getName(),
+            'namespace' => $this->getOriginalClass()->getNamespaceName(),
         ];
     }
 
+    /**
+     * Get parameter name and namespaces for Testcase class
+     * @return array
+     */
     protected function getTestClassParameter() {
+
+        $testClassName = sprintf(self::TEST_CLASS_NAME, $this->getOriginalClass()->getShortName());
+        $testClassNamespace = null;
+
+        if ($this->getOriginalClass()->inNamespace()) {
+
+            $ns = $this->getOriginalClass()->getNamespaceName();
+            $strPos = strpos($ns, '\\');
+            $part1 = substr($ns,0, $strPos);
+            $part2 = substr($ns, $strPos);
+            $testClassNamespace = sprintf(self::TEST_CLASS_NAMESPACE, $part1, $part2);
+        }
+
         $methods = [];
         return [
-            'name' => 'MyPoolTest',
-            'namespace' => 'MyVendor\Tests\Service',
+            'name' => $testClassName,
+            'namespace' => $testClassNamespace,
             'methods' => $methods
         ];
     }
 
     /**
-     * @return mixed
+     * @return \ReflectionClass
      */
     public function getOriginalClass()
     {
