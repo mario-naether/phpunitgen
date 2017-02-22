@@ -3,11 +3,9 @@
 {%  if class.namespace %}
 namespace {{ class.namespace }};
 {% endif %}
+
 /**
-*
 * {{ class.name }}
-*
-* @package {{ class.namespace }};
 */
 class {{ class.name }} extends PHPUnit_Framework_TestCase
 {
