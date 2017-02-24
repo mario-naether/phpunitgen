@@ -24,7 +24,7 @@ class FileCollectionService
 
         if ($fs->exists($source)) {
             $finder = new Finder();
-            $finder->files()->ignoreDotFiles(true)->ignoreVCS(true);
+            $finder->files()->ignoreDotFiles(true)->ignoreVCS(true)->sortByName();
             if (is_file($source)) {
                 $finder->name(basename($source));
                 $source = dirname($source);
