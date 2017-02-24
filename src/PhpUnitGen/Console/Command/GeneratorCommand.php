@@ -1,6 +1,7 @@
 <?php
 namespace PhpUnitGen\Console\Command;
 
+use PhpUnitGen\Service\PhpUnitGeneratorService;
 use PhpUnitGen\Service\TestCaseGeneratorService;
 use PhpUnitGen\Utility\ClassNameUtility;
 use Symfony\Component\Console\Command\Command;
@@ -22,19 +23,12 @@ class GeneratorCommand extends Command
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $src = $input->getArgument('src');
-        var_dump($src);
-        if (is_file($input->getArgument('src'))) {
-            //new FileCollectionService();
+        $testsFolder = $input->getArgument('tests');
 
-            $srcFile   = $src;
-            $className = ClassNameUtility::getClassNameFromFile($srcFile);
+        $service = new PhpUnitGeneratorService($src, $testsFolder);
+        $service->execute();
 
-            $testCaseGen = new TestCaseGeneratorService();
-            $testCaseGen->setOriginalClass(new \ReflectionClass($className));
-            echo $testCaseGen->generate();
 
-            //StoreCodeService::saveFile
-        }
     }
 
     protected function configure()
